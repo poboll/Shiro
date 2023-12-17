@@ -182,18 +182,18 @@ const SayHi = () => {
         __html: `var version = "${version}";
     (${function () {
       console.log(
-        `%c Mix Space %c https://github.com/mx-space `,
+        `%c 在虎 %c https://www.caiths.com `,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
       console.log(
-        `%c Shiro ${window.version} %c https://innei.ren `,
+        `%c 喵内 ${window.version} %c https://blog.caiths.com `,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
-
+          
       const motto = `
-This Personal Space Powered By Mix Space.
+This Personal Space Powered By 在虎.
 Written by TypeScript, Coding with Love.
 --------
 Stay hungry. Stay foolish. --Steve Jobs
@@ -202,6 +202,19 @@ Stay hungry. Stay foolish. --Steve Jobs
       if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
         document.prepend(document.createComment(motto))
       }
+
+      const fetchHitokoto = async () => {
+        try {
+          const response = await fetch('https://v1.hitokoto.cn');
+          const data = await response.json();
+          if (data.hitokoto) {
+            console.log(`%c ${data.hitokoto}`, 'font-size: 12px;');
+          }
+        } catch (error) {
+        }
+      };
+
+      await fetchHitokoto();
     }.toString()})();`,
       }}
     />
