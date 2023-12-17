@@ -192,6 +192,7 @@ const SayHi = () => {
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
           
+          
       const motto = `
 This Personal Space Powered By 在虎.
 Written by TypeScript, Coding with Love.
@@ -203,6 +204,10 @@ Stay hungry. Stay foolish. --Steve Jobs
         document.prepend(document.createComment(motto))
       }
 
+      const fetchData = async () => {
+        await fetchHitokoto();
+      };
+
       const fetchHitokoto = async () => {
         try {
           const response = await fetch('https://v1.hitokoto.cn');
@@ -211,10 +216,11 @@ Stay hungry. Stay foolish. --Steve Jobs
             console.log(`%c ${data.hitokoto}`, 'font-size: 12px;');
           }
         } catch (error) {
+          console.error('一言接口调用出错', error);
         }
       };
-
-      await fetchHitokoto();
+      
+      fetchData();
     }.toString()})();`,
       }}
     />
