@@ -154,7 +154,7 @@ const FooterBottom = async () => {
           <OwnerName />
         </a>
         <span>.</span>
-        <span>
+          <span>
           <Divider />
           <a href="/feed" target="_blank">
             RSS
@@ -163,11 +163,12 @@ const FooterBottom = async () => {
           <a href="/sitemap.xml" target="_blank">
             站点地图
           </a>
-          <Divider className="hidden md:inline" />
-
-          <SubscribeTextButton>
-            <Divider className="inline" />
-          </SubscribeTextButton>
+          <Divider />
+          <a>
+            <SubscribeTextButton>
+              <Divider className="inline" />
+            </SubscribeTextButton>
+          </a>
         </span>
         <span className="mt-3 block md:mt-0 md:inline">
           Stay hungry. Stay foolish.
