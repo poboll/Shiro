@@ -22,7 +22,7 @@ import styles from './markdown.module.css'
 import { AlertsRule } from './parsers/alert'
 import { ContainerRule } from './parsers/container'
 import { InsertRule } from './parsers/ins'
-import { KateXRule } from './parsers/katex'
+import { KateXBlockRule, KateXRule } from './parsers/katex'
 import { MarkRule } from './parsers/mark'
 import { MentionRule } from './parsers/mention'
 import { SpoilerRule } from './parsers/spoiler'
@@ -41,7 +41,7 @@ import { MTag } from './renderers/tag'
 import { getFootNoteDomId, getFootNoteRefDomId } from './utils/get-id'
 import { redHighlight } from './utils/redHighlight'
 
-const CodeBlock = dynamic(() => import('~/components/widgets/shared/CodeBlock'))
+const CodeBlock = dynamic(() => import('~/components/modules/shared/CodeBlock'))
 
 export interface MdProps {
   value?: string
@@ -256,6 +256,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           mark: MarkRule,
           ins: InsertRule,
           kateX: KateXRule,
+          kateXBlock: KateXBlockRule,
           container: ContainerRule,
           alerts: AlertsRule,
 

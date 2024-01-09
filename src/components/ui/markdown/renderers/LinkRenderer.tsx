@@ -13,6 +13,7 @@ import {
   isGithubRepoUrl,
   isGithubUrl,
   isSelfArticleUrl,
+  isTMDBUrl,
   isTweetUrl,
   isYoutubeUrl,
   parseGithubGistUrl,
@@ -20,11 +21,11 @@ import {
   parseGithubTypedUrl,
 } from '~/lib/link-parser'
 
-import { EmbedGithubFile } from '../../../widgets/shared/EmbedGithubFile'
+import { EmbedGithubFile } from '../../../modules/shared/EmbedGithubFile'
 import { LinkCard, LinkCardSource } from '../../link-card'
 import { MLink } from '../../link/MLink'
 
-const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
+const Tweet = dynamic(() => import('~/components/modules/shared/Tweet'), {
   ssr: false,
 })
 
@@ -104,7 +105,20 @@ export const BlockLinkRenderer = ({
     }
     case isSelfArticleUrl(url): {
       return (
-        <LinkCard source={LinkCardSource.Self} id={url.pathname.slice(1)} />
+        <LinkCard
+          fallbackUrl={url.toString()}
+          source={LinkCardSource.Self}
+          id={url.pathname.slice(1)}
+        />
+      )
+    }
+    case isTMDBUrl(url): {
+      return (
+        <LinkCard
+          fallbackUrl={url.toString()}
+          source={LinkCardSource.TMDB}
+          id={url.pathname.slice(1)}
+        />
       )
     }
 
@@ -172,7 +186,11 @@ const GithubUrlRenderL: FC<{
     case isGithubPrUrl(url): {
       const { owner, repo, pr } = parseGithubPrUrl(url)
       return (
-        <LinkCard id={`${owner}/${repo}/${pr}`} source={LinkCardSource.GHPr} />
+        <LinkCard
+          fallbackUrl={url.toString()}
+          id={`${owner}/${repo}/${pr}`}
+          source={LinkCardSource.GHPr}
+        />
       )
     }
 
@@ -184,6 +202,7 @@ const GithubUrlRenderL: FC<{
             <MLink href={href}>{href}</MLink>
           </p>
           <LinkCard
+            fallbackUrl={url.toString()}
             id={`${owner}/${repo}/commit/${id}`}
             source={LinkCardSource.GHCommit}
           />

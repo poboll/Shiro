@@ -82,6 +82,9 @@ const ForDesktop: Component<{
   shouldHideNavBg?: boolean
   animatedIcon?: boolean
 }> = ({ className, shouldHideNavBg, animatedIcon = true }) => {
+  const { config: headerMenuConfig } = useHeaderConfig()
+  const pathname = usePathname()
+
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const radius = useMotionValue(0)
@@ -95,9 +98,6 @@ const ForDesktop: Component<{
     [mouseX, mouseY, radius],
   )
 
-  const { config: headerMenuConfig } = useHeaderConfig()
-  const pathname = usePathname()
-
   const background = useMotionTemplate`radial-gradient(${radius}px circle at ${mouseX}px ${mouseY}px, var(--spotlight-color) 0%, transparent 65%)`
 
   return (
@@ -109,7 +109,7 @@ const ForDesktop: Component<{
         'rounded-full bg-gradient-to-b from-zinc-50/70 to-white/90',
         'shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md',
         'dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10',
-        'group [--spotlight-color:hsl(var(--a)_/_0.05)]',
+        'group [--spotlight-color:oklch(var(--a)_/_0.12)]',
         'duration-200',
         shouldHideNavBg && '!bg-none !shadow-none !ring-transparent',
         className,
@@ -199,7 +199,7 @@ function AnimatedItem({
         href={href}
         className={clsxm(
           'relative block whitespace-nowrap px-4 py-2 transition',
-          isActive ? 'text-accent' : 'hover:text-accent-focus',
+          isActive ? 'text-accent' : 'hover:text-accent/80',
           isActive ? 'active' : '',
           className,
         )}
